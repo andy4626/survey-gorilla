@@ -1,14 +1,15 @@
 get '/surveys/:survey_id' do
   @survey = Survey.find(params[:survey_id])
-  if logged_in?
-    if @survey.user_answers.any?{|user_answer| user_answer.user_id == current_user.id}
-      erb :'/taken-already'
-    else
-      @questions = @survey.questions
-      erb :'surveys/show'
-    end
+   if logged_in?
+      if @survey.user_answers.any?{|user_answer| user_answer.user_id == current_user.id}
+        erb :'/taken-already'
+      else
+        @questions = @survey.questions
+        erb :'surveys/show'
+      end
   else
-    erb :'/taken-already'
+   @questions = @survey.questions
+   erb :'surveys/show'
   end
 end
 
@@ -23,9 +24,19 @@ get '/surveys/:survey_id/results' do
 end
 
 post '/surveys/:survey_id' do
-  params[:input].each_value do |answer|
-    UserAnswer.create(user_id: current_user.id, answer_id: answer)
+  @survey = Survey.find(params[:survey_id])
+  if logged_in?
+    if @survey.user_answers.any?{|user_answer| user_answer.user_id == current_user.id}
+      erb :'/taken-already'
+    else
+      params[:input].each_value do |answer|
+        UserAnswer.create(user_id: current_user.id, answer_id: answer)
+      end
+      redirect "/"
+    end
+  else
+    @errors = ["You need to login to take this survey."]
+    erb :'sessions/login'
   end
-  redirect "/"
 end
 
