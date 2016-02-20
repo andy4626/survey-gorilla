@@ -15,9 +15,17 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="/js/application.js"></script>
 
-  <title></title>
+  <title>survey code monkeys</title>
 </head>
 <body>
+  <%if logged_in?%>
+    Logged in as <a href='/users/<%=current_user.id%>'> <%=current_user.username%></a>
+    <a href="/logout">Logout</a>
+  <%else%>
+    <a href="/signup">Sign up</a>
+    <a href="/login">Login</a>
+  <%end%>
+  <h1><a href='/'>survey code monkeys.</a></h1>
 <div id="content">
   <%= yield %>
 </div>

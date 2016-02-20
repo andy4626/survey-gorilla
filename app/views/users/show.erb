@@ -1,0 +1,17 @@
+<h1><%=@user.username%></h1>
+<h2>Surveys by <%=@user.username%></h2>
+<%@user.surveys.each do |survey|%>
+<!-- if @user.id == current_user[:user_id] show results page
+  ' -->
+<a href='/surveys/<%=survey.id%>'><%=survey.name%></a>
+<% if logged_in? && survey.user_id == current_user.id %>
+  <a href = '/surveys/<%=survey.id%>/results'>Results</a>
+<% end %>
+  <%end%>
+<h2>Surveys taken:</h2>
+  <p>
+    <% @user.user_answers.map{|user_answer| user_answer.answer.question.survey}.uniq.each do |survey| %>
+      <a href='/surveys/<%=survey.id%>'><%= survey.name %></a>
+    <% end %>
+
+  </p>

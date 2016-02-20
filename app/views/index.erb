@@ -1,0 +1,6 @@
+
+<ul>
+<%@surveys.each do |survey| %>
+  <li><a href='/surveys/<%=survey.id%>'><%= survey.name%></a>, by <a href='/users/<%=survey.user.id%>'><%=survey.user.username%></a></li>
+<%end%>
+</ul>

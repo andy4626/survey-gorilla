@@ -1,0 +1,11 @@
+<h3><%=@survey.name%></h3>
+  <%@survey.questions.each do |question|%>
+    <h3><%=question.content%></h3>
+    <ul>
+      <%question.answers.each do |answer|%>
+        <li><span class="answer"><%=answer.content%></span><br>
+        <span class="count">Responses: <%=answer.user_answers.count%></span></li>
+      <%end%>
+    </ul>
+  <%end%>
+

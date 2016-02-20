@@ -1,0 +1,13 @@
+<% if @errors %>
+<% @errors.each do |error| %>
+  <%= error %>
+<% end %>
+<% end %>
+
+<form method="POST" action='/login'>
+  <label>User name</label>
+  <input id="username" type='text' name="username" placeholder="user name">
+  <label>Password</label>
+  <input type='password' name='password' placeholder='password'>
+  <input type="submit" value="Login">
+</form>
